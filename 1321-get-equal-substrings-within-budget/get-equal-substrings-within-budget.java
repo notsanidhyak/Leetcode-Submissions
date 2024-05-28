@@ -15,7 +15,7 @@ class Solution {
         cost -= Math.abs(s.charAt(i) - t.charAt(i));
         i++;
       }
-      max = Math.max(max, cost);
+    //   max = Math.max(max, cost);
       len = Math.max(len, j-i);
     }
     return len;
