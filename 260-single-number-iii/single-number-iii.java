@@ -1,3 +1,11 @@
+// Approach 1 - brute force, 2 for loops, 2 pointers, find pairs -> if found ok else got our single num.
+
+// Approach 2 - use hashmap, tell freq 1
+
+// Approach 3 - use xor. 
+
+// Similar prob = where only 1 num is unique, for that also do xor of all, xor ans is your ans because pairs would cut out to 0. Use this logic here -
+
 class Solution {
     public int[] singleNumber(int[] nums) {
         int xorofall = 0;
