@@ -65,6 +65,7 @@ class Solution {
         }
         return true;
     }
+    
     public boolean isBipartite(int[][] graph) {
         int color [] = new int [graph.length];
         for (int i = 0; i<color.length; i++){
