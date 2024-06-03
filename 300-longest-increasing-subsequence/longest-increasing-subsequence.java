@@ -22,7 +22,7 @@
 
 // -----------------------------------------------------------------
 
-// DP (Memoization)
+// DP (Memoization) -
 
 class Solution {
     public int dpfunc(int idx, int previdx, int [][]dp, int []nums){
@@ -43,9 +43,9 @@ class Solution {
 
     public int lengthOfLIS(int[] nums) {
         // dp will store len obtained till (idx, previdx)
-        int [][] dp = new int [nums.length][nums.length+1];
+        int [][] dp = new int [nums.length][nums.length];
         for (int i = 0; i<nums.length; i++){
-            for(int j = 0; j<nums.length+1; j++){
+            for(int j = 0; j<nums.length; j++){
                 dp[i][j]=-1;
             }
         }
@@ -54,5 +54,15 @@ class Solution {
     }
 }
 
-// DP (Tabulation)
+// -----------------------------------------------------------------
+
+// DP (Tabulation) -
+
+// class Solution {
+//     public int dpfunc(int idx, int previdx, int [][]dp, int []nums){
+//         int 
+//     }
+
+
+
 
