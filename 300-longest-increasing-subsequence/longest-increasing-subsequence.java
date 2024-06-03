@@ -84,25 +84,47 @@
 
 // DP (Tabulation with space optimization) -
 
+// class Solution {
+//     public int lengthOfLIS(int[] nums){
+//         // size is [n+1] and [n+1] coz we need base case also
+//         // also, all elements are initialized to 0 by default
+//         int [] nrow = new int [nums.length+1]; // nextrow (idx+1)
+//         int [] crow = new int [nums.length+1]; // currentrow (idx)
+//         // all elements initialized to 0, hence base case also initialized to 0
+//         for(int idx = nums.length-1; idx>=0; idx--){
+//             for(int previdx = idx-1; previdx>=-1; previdx--){
+//                 int len = 0 + nrow[previdx+1]; // not pick this idx
+//                 if(previdx==-1 || nums[idx]>nums[previdx]){
+//                     len = Math.max(len, 1 + nrow[idx+1]);
+//                 }  // pick this idx
+//                 crow[previdx+1] = len;
+//             }
+//             nrow = crow; // so that in next loop whenever idx+1 is needed it is nothing but this crow only. THINK!
+//         }
+//         return crow[-1+1]; // or nrow[-1+1] -> Anything works as nrow = crow at last
+//     }
+// }
+
+// ----------------------------------------------------------------
+
+// DP (Tabulation: dp[idx] represents LIS ending at index idx)
+
 class Solution {
     public int lengthOfLIS(int[] nums){
-        // size is [n+1] and [n+1] coz we need base case also
-        // also, all elements are initialized to 0 by default
-        int [] nrow = new int [nums.length+1]; // nextrow (idx+1)
-        int [] crow = new int [nums.length+1]; // currentrow (idx)
-        // all elements initialized to 0, hence base case also initialized to 0
-        for(int idx = nums.length-1; idx>=0; idx--){
-            for(int previdx = idx-1; previdx>=-1; previdx--){
-                int len = 0 + nrow[previdx+1]; // not pick this idx
-                if(previdx==-1 || nums[idx]>nums[previdx]){
-                    len = Math.max(len, 1 + nrow[idx+1]);
-                }  // pick this idx
-                crow[previdx+1] = len;
-            }
-            nrow = crow; // so that in next loop whenever idx+1 is needed it is nothing but this crow only. THINK!
+        int [] dp = new int [nums.length];
+        int maxlen = 0;
+        for(int i = 0; i<dp.length; i++){
+            dp[i]=1; // since worst case -> LIS ending at index i is the number itself, hence LIS always >= 1 !!
         }
-        return crow[-1+1]; // or nrow[-1+1] -> Anything works as nrow = crow at last
+        for(int idx = 0; idx<nums.length; idx++){
+            for(int previdx = 0; previdx<idx; previdx++){
+                if(nums[idx]>nums[previdx]){
+                    dp[idx] = Math.max(dp[idx], 1+dp[previdx]);
+                }
+            }
+            maxlen = Math.max(maxlen, dp[idx]);
+        }
+        return maxlen;
     }
 }
-
 
