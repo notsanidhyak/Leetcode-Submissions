@@ -61,24 +61,48 @@
 
 // DP (Tabulation) -
 
+// class Solution {
+//     public int lengthOfLIS(int[] nums){
+//         // size is [n+1][n+1] coz we need base case also
+//         // also, all elements are initialized to 0 by default
+//         int [][] dp = new int [nums.length+1][nums.length+1];
+//         // all elements initialized to 0, hence base case also initialized to 0
+//         for(int idx = nums.length-1; idx>=0; idx--){
+//             for(int previdx = idx-1; previdx>=-1; previdx--){
+//                 int len = 0 + dp[idx+1][previdx+1]; // not pick this idx
+//                 if(previdx==-1 || nums[idx]>nums[previdx]){
+//                     len = Math.max(len, 1 + dp[idx+1][idx+1]);
+//                 }  // pick this idx
+//                 dp[idx][previdx+1] = len;
+//             }
+//         }
+//         return dp[0][-1+1];
+//     }
+// }
+
+// -----------------------------------------------------------------
+
+// DP (Tabulation with space optimization) -
+
 class Solution {
     public int lengthOfLIS(int[] nums){
-        // size is [n+1][n+1] coz we need base case also
+        // size is [n+1] and [n+1] coz we need base case also
         // also, all elements are initialized to 0 by default
-        int [][] dp = new int [nums.length+1][nums.length+1];
+        int [] nrow = new int [nums.length+1]; // nextrow (idx+1)
+        int [] crow = new int [nums.length+1]; // currentrow (idx)
         // all elements initialized to 0, hence base case also initialized to 0
         for(int idx = nums.length-1; idx>=0; idx--){
             for(int previdx = idx-1; previdx>=-1; previdx--){
-                int len = 0 + dp[idx+1][previdx+1]; // not pick this idx
+                int len = 0 + nrow[previdx+1]; // not pick this idx
                 if(previdx==-1 || nums[idx]>nums[previdx]){
-                    len = Math.max(len, 1 + dp[idx+1][idx+1]);
+                    len = Math.max(len, 1 + nrow[idx+1]);
                 }  // pick this idx
-                dp[idx][previdx+1] = len;
+                crow[previdx+1] = len;
             }
+            nrow = crow; // so that in next loop whenever idx+1 is needed it is nothing but this crow only. THINK!
         }
-        return dp[0][-1+1];
+        return crow[-1+1]; // or nrow[-1+1] -> Anything works as nrow = crow at last
     }
 }
-
 
 
