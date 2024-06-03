@@ -109,21 +109,73 @@
 
 // DP (Tabulation: dp[idx] represents LIS ending at index idx)
 
+// class Solution {
+//     public int lengthOfLIS(int[] nums){
+//         int [] dp = new int [nums.length];
+//         int maxlen = 0;
+//         for(int i = 0; i<dp.length; i++){
+//             dp[i]=1; // since worst case -> LIS ending at index i is the number itself, hence LIS always >= 1 !!
+//         }
+//         for(int idx = 0; idx<nums.length; idx++){
+//             for(int previdx = 0; previdx<idx; previdx++){
+//                 if(nums[idx]>nums[previdx]){
+//                     dp[idx] = Math.max(dp[idx], 1+dp[previdx]);
+//                 }
+//             }
+//             maxlen = Math.max(maxlen, dp[idx]);
+//         }
+//         return maxlen;
+//     }
+// }
+
+// ----------------------------------------------------------------
+
+// Printing the LIS (addition to above code) -
+
 class Solution {
     public int lengthOfLIS(int[] nums){
         int [] dp = new int [nums.length];
-        int maxlen = 0;
         for(int i = 0; i<dp.length; i++){
             dp[i]=1; // since worst case -> LIS ending at index i is the number itself, hence LIS always >= 1 !!
         }
+
+        int [] hash = new int[nums.length];
+        for(int i = 0; i<hash.length; i++){
+            hash[i]=i; // since it is imp, we can't make all elements as -1 or 0 bcs while backtracking, backtracking will only when curr location se aur peeche nahi jaa sakte tum. If whole array is set to 0 then hamesha wo 0 pe chala jayega. Take example draw and think!
+
+        }
+
+        int maxlen = 0;
+        int lastindexofLIS = 0;
+        
         for(int idx = 0; idx<nums.length; idx++){
             for(int previdx = 0; previdx<idx; previdx++){
-                if(nums[idx]>nums[previdx]){
-                    dp[idx] = Math.max(dp[idx], 1+dp[previdx]);
+                if(nums[idx]>nums[previdx] && 1+dp[previdx]>dp[idx]){
+                    dp[idx] = 1+dp[previdx];
+                    hash[idx] = previdx;
                 }
             }
-            maxlen = Math.max(maxlen, dp[idx]);
+            if (dp[idx]>maxlen){
+                maxlen = dp[idx];
+                lastindexofLIS = idx;
+            } 
         }
+
+        // Now you need to backtrack in the hash array.
+        // First create a arraylist to store the seq
+        ArrayList<Integer> seq = new ArrayList<>();
+
+        // Below condition inside while works only because hash[i]=i was set above
+        // Need to add first element khudse -
+        seq.add(nums[lastindexofLIS]);
+        while (lastindexofLIS != hash[lastindexofLIS]){
+            lastindexofLIS = hash[lastindexofLIS];
+            seq.add(nums[lastindexofLIS]);
+        }
+        Collections.reverse(seq);
+        for (int ele : seq){
+            System.out.println(ele);
+        } 
         return maxlen;
     }
 }
