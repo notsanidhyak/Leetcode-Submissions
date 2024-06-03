@@ -132,51 +132,102 @@
 
 // Printing the LIS (addition to above code) -
 
-class Solution {
-    public int lengthOfLIS(int[] nums){
-        int [] dp = new int [nums.length];
-        for(int i = 0; i<dp.length; i++){
-            dp[i]=1; // since worst case -> LIS ending at index i is the number itself, hence LIS always >= 1 !!
-        }
+// class Solution {
+//     public int lengthOfLIS(int[] nums){
+//         int [] dp = new int [nums.length];
+//         for(int i = 0; i<dp.length; i++){
+//             dp[i]=1; // since worst case -> LIS ending at index i is the number itself, hence LIS always >= 1 !!
+//         }
 
-        int [] hash = new int[nums.length];
-        for(int i = 0; i<hash.length; i++){
-            hash[i]=i; // since it is imp, we can't make all elements as -1 or 0 bcs while backtracking, backtracking will only when curr location se aur peeche nahi jaa sakte tum. If whole array is set to 0 then hamesha wo 0 pe chala jayega. Take example draw and think!
+//         int [] hash = new int[nums.length];
+//         for(int i = 0; i<hash.length; i++){
+//             hash[i]=i; // since it is imp, we can't make all elements as -1 or 0 bcs while backtracking, backtracking will only when curr location se aur peeche nahi jaa sakte tum. If whole array is set to 0 then hamesha wo 0 pe chala jayega. Take example draw and think!
 
-        }
+//         }
 
-        int maxlen = 0;
-        int lastindexofLIS = 0;
+//         int maxlen = 0;
+//         int lastindexofLIS = 0;
         
-        for(int idx = 0; idx<nums.length; idx++){
-            for(int previdx = 0; previdx<idx; previdx++){
-                if(nums[idx]>nums[previdx] && 1+dp[previdx]>dp[idx]){
-                    dp[idx] = 1+dp[previdx];
-                    hash[idx] = previdx;
-                }
+//         for(int idx = 0; idx<nums.length; idx++){
+//             for(int previdx = 0; previdx<idx; previdx++){
+//                 if(nums[idx]>nums[previdx] && 1+dp[previdx]>dp[idx]){
+//                     dp[idx] = 1+dp[previdx];
+//                     hash[idx] = previdx;
+//                 }
+//             }
+//             if (dp[idx]>maxlen){
+//                 maxlen = dp[idx];
+//                 lastindexofLIS = idx;
+//             } 
+//         }
+
+//         // Now you need to backtrack in the hash array.
+//         // First create a arraylist to store the seq
+//         ArrayList<Integer> seq = new ArrayList<>();
+
+//         // Below condition inside while works only because hash[i]=i was set above
+//         // Need to add first element khudse -
+//         seq.add(nums[lastindexofLIS]);
+//         while (lastindexofLIS != hash[lastindexofLIS]){
+//             lastindexofLIS = hash[lastindexofLIS];
+//             seq.add(nums[lastindexofLIS]);
+//         }
+//         Collections.reverse(seq);
+//         for (int ele : seq){
+//             System.out.println(ele);
+//         } 
+//         return maxlen;
+//     }
+// }
+
+// ----------------------------------------------------------------
+
+// Binary Search Method -
+// The temp array used here is not the LIS, it only helps in getting the length of LIS. This method only gives len of LIS and not the LIS.
+
+class Solution {
+    // Here Binary Search is used to find lower bound.
+    // Lower bound is the index of that element which is just >= that our element
+    public int getLowerBound(ArrayList<Integer> temp, int key){
+        int low = 0, high = temp.size();
+        int mid;
+ 
+        while (low < high){
+            mid = low + (high - low) / 2;
+            if (key <= temp.get(mid)){
+                high = mid;
             }
-            if (dp[idx]>maxlen){
-                maxlen = dp[idx];
-                lastindexofLIS = idx;
-            } 
+            else{
+                low = mid + 1;
+            }
         }
 
-        // Now you need to backtrack in the hash array.
-        // First create a arraylist to store the seq
-        ArrayList<Integer> seq = new ArrayList<>();
-
-        // Below condition inside while works only because hash[i]=i was set above
-        // Need to add first element khudse -
-        seq.add(nums[lastindexofLIS]);
-        while (lastindexofLIS != hash[lastindexofLIS]){
-            lastindexofLIS = hash[lastindexofLIS];
-            seq.add(nums[lastindexofLIS]);
+        // Increment by one for lower bound if temp.get(low)<key
+        // Also need to check if low<temp.size()
+        // bcs if low == temp.size() means temp.get(low)<key also, this means the lower bound in not found in the array. Return -1 in that case.
+        if (low < temp.size() && temp.get(low) < key) {
+            low++;
         }
-        Collections.reverse(seq);
-        for (int ele : seq){
-            System.out.println(ele);
-        } 
-        return maxlen;
+        if (low == temp.size()){
+            return -1;
+        }
+        return low;
+    }
+
+    public int lengthOfLIS(int[] nums){
+        ArrayList<Integer> temp = new ArrayList<>();
+        temp.add(nums[0]);
+        int len = 1;
+        for (int i = 0; i<nums.length; i++){
+            if(nums[i]>temp.get(temp.size()-1)){
+                temp.add(nums[i]);
+                len++;
+            }
+            else{
+                int index = getLowerBound(temp, nums[i]);
+                temp.set(index, nums[i]);
+            }
+        }
+        return len;
     }
 }
-
