@@ -29,15 +29,15 @@ class Solution {
         if (idx==nums.length){
             return 0;
         }
-        if (dp[idx][previdx]!=-1){
-            return dp[idx][previdx];
+        if (dp[idx][previdx+1]!=-1){
+            return dp[idx][previdx+1];
         }
         int len = 0 + dpfunc(idx+1, previdx, dp, nums); // not pick this idx
-        if(previdx==nums.length || nums[idx]>nums[previdx]){
+        if(previdx==-1 || nums[idx]>nums[previdx]){
             len = Math.max(len, 1 + dpfunc(idx+1, idx, dp, nums));
         }  // pick this idx
 
-        dp[idx][previdx] = len;
+        dp[idx][previdx+1] = len;
         return len;
     }
 
@@ -49,7 +49,10 @@ class Solution {
                 dp[i][j]=-1;
             }
         }
-        // instead of previdx as -1 in start i am taking previdx as nums.length at start, anyaways both -1 and nums.length are some indexes which are not reachable and are just to highlight that we have not picked anything from starting.
-        return dpfunc(0, nums.length, dp, nums);
+        // taking previdx s -1 but dp doesnot have any index at -1 hence doing change of coordinates in dp array: -1 in nums -> 0 in dp 2nd array , 0 in nums -> 1 in dp 2nd array, etc
+        return dpfunc(0, -1, dp, nums);
     }
 }
+
+// DP (Tabulation)
+
