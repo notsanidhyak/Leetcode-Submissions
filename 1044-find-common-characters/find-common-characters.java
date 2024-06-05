@@ -1,24 +1,29 @@
+import java.util.ArrayList;
+import java.util.List;
+
 class Solution {
     public List<String> commonChars(String[] words) {
-        List<String> hash = new ArrayList<>();
-        for(char al = 'a'; al<='z'; al++){
-            int finalct = Integer.MAX_VALUE;
-            for(int wordsidx = 0; wordsidx<words.length; wordsidx++){
-                int ct = 0;
-                for(int charidx = 0; charidx<words[wordsidx].length(); charidx++){
-                    if(al==words[wordsidx].charAt(charidx)){
-                        ct++;
-                    }
+        int[] minFreq = new int[26];
+        for (int i = 0; i < 26; i++) {
+            minFreq[i] = Integer.MAX_VALUE;
+        }
 
-                }
-                if(ct!=finalct){
-                    finalct = Math.min(ct, finalct);
-                }
+        for (String word : words) {
+            int[] charCount = new int[26];
+            for (char c : word.toCharArray()) {
+                charCount[c - 'a']++;
             }
-            for(int k = 0; k<finalct; k++){
-                hash.add(String.valueOf(al));
+            for (int i = 0; i < 26; i++) {
+                minFreq[i] = Math.min(minFreq[i], charCount[i]);
             }
         }
-        return hash;
+
+        List<String> result = new ArrayList<>();
+        for (int i = 0; i < 26; i++) {
+            for (int j = 0; j < minFreq[i]; j++) {
+                result.add(String.valueOf((char) (i + 'a')));
+            }
+        }
+        return result;
     }
 }
