@@ -61,32 +61,34 @@
 
 class Solution {
     public boolean isNStraightHand(int[] hand, int groupSize) {
+
         HashMap<Integer, Integer> hash = new HashMap<>();
+
         for (int num : hand) {
             hash.put(num, hash.getOrDefault(num, 0) + 1);
         }
+
         Arrays.sort(hand);
 
         for (int i : hand){
+
             int ct = hash.get(i);
             if (ct>0){
                 hash.put(i, hash.get(i) - 1);
+
                 for(int j = 1; j<groupSize; j++){
                     int ct_j = hash.getOrDefault(i+j, 0);
-                    if(ct_j>0){
-                        hash.put(i+j, hash.get(i+j)-1);
-                    }
-                    else{
-                        return false;
-                    }
+
+                    if(ct_j>0) hash.put(i+j, hash.get(i+j)-1);
+                    else return false;
                 }
             }
         }
+        
         for(int i : hash.keySet()){
-            if(hash.get(i)>0){
-                return false;
-            }
+            if(hash.get(i)>0) return false;
         }
+
         return true;
     }
 }
