@@ -164,10 +164,6 @@ class Solution {
     public int longestCommonSubsequence(String text1, String text2) {
         int [] prow = new int [text2.length()+1];
         int [] crow = new int [text2.length()+1];
-        // for(int i=0; i<text2.length()+1; i++){
-        //     crow[i]=0;
-        //     prow[i]=0;
-        // }
         for (int i = 1; i<=text1.length(); i++){
             for(int j = 1; j<=text2.length(); j++){
                 if(i==0 || j==0){
@@ -181,6 +177,7 @@ class Solution {
                     crow[j] = Math.max(crow[j-1], prow[j]);
                 }
             }
+            // prow = crow doesn't work. better do this!
             for (int k = 0; k<crow.length; k++){
                 prow[k] = crow[k];
             }
