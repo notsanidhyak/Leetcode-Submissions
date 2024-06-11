@@ -164,17 +164,17 @@ class Solution {
     public int longestCommonSubsequence(String text1, String text2) {
         int [] prow = new int [text2.length()+1];
         int [] crow = new int [text2.length()+1];
-        for(int i=0; i<text2.length()+1; i++){
-            crow[i]=0;
-            prow[i]=0;
-        }
+        // for(int i=0; i<text2.length()+1; i++){
+        //     crow[i]=0;
+        //     prow[i]=0;
+        // }
         for (int i = 1; i<=text1.length(); i++){
             for(int j = 1; j<=text2.length(); j++){
-                // if(i==0 || j==0){
-                //     crow[j]=0;
-                // }
+                if(i==0 || j==0){
+                    crow[j]=0;
+                }
                 // note that pointer in text is moving one ahead hence doing i-1 here. also note that dp's row 0 and col 0 is the base case when nothing's there.
-                if(text1.charAt(i-1) == text2.charAt(j-1)){
+                else if(text1.charAt(i-1) == text2.charAt(j-1)){
                     crow[j] = 1+prow[j-1];
                 }
                 else{
@@ -186,7 +186,7 @@ class Solution {
             }
         }
         // access last coloumn of crow/prow -> both same only!
-        return prow[text2.length()];
+        return crow[text2.length()];
     }
 }
 
