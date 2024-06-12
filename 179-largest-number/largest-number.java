@@ -9,7 +9,7 @@ class Solution {
         // main thing is here, you have to build a comparator which would compare s1 and s2 and return you the bigger (in terms of string);
         Comparator <String> mycomp = new Comparator<String>(){
             // this is the logic for comparing using Arrays.sort would use to compare each pair of ele in array
-            @Override
+            @Override // here we are overriding the compare func inside the Comparator class bcs we want our func here!
             public int compare(String s1, String s2){
                 String str1 = s1+s2;
                 String str2 = s2+s1;
