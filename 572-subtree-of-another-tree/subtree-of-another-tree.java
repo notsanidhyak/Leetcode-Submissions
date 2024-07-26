@@ -23,7 +23,7 @@ class Solution {
     public boolean isSubtree(TreeNode root, TreeNode subRoot) {
         // these two lines for edge cases! Think.
         if (root == null && subRoot == null) return true;
-        if (root == null && subRoot != null) return false; // if both are null then above must have already returned true, if it is coming here, it means one of them is not null, hence return false.
+        if (root == null && subRoot != null) return false; // this means root.left / root.right karte karte tree ke ek (1) end tak pahuch gaye tree ke lekin nahi mila same bhai iska, so false!
         if (isSameTree(root, subRoot)) return true;
         return isSubtree(root.left, subRoot) || isSubtree(root.right, subRoot);
     }
