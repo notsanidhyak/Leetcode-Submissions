@@ -49,7 +49,7 @@
 
 // ---------------------------------------------------------------------
 
-// Beats 100% -> m+n only (ct method)
+// Beats 100% -> m+n only (ct method) better because limited number of runs as compared to above method!
 
 public class Solution{
     public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
