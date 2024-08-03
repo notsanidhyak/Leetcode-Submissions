@@ -22,7 +22,6 @@ class Solution {
         return Math.max(leftmax, rightmax);
     }
     public int maxDepth(TreeNode root) {
-        int height = 0;
         return rec(root, 0);        
     }
 }
