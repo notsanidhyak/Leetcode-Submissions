@@ -14,6 +14,7 @@
  * }
  */
 
+// Custom class to store(TreeNode, idx)
 class Customarr{
     TreeNode node;
     int idx;
@@ -31,20 +32,27 @@ class Solution {
         q.add(new Customarr(root, 0));
         while(!q.isEmpty()){
             int size = q.size();
-            int thisLevelMinidx = q.peek().idx;
+            int thisLevelMinidx = q.peek().idx; // leftmost guy's idx which would be subtracted from all right ones later on
+
             int first = 0;
             int last = 0;
             for(int i = 0; i<size; i++){
-                int curridx = q.peek().idx - thisLevelMinidx;
+                int curridx = q.peek().idx - thisLevelMinidx; // Sets idx starting from 0 always (dad is always idx 0)
                 TreeNode currnode = q.peek().node;
                 q.poll();
-                if (i==0) first = curridx;
-                if (i==size-1) last = curridx;
+                if (i==0) first = curridx; // leftmost possible
+                if (i==size-1) last = curridx; // rightmost possible
+
+                // Adding next level guys
                 if(currnode.left!=null) q.add(new Customarr(currnode.left, curridx*2+1));
                 if(currnode.right!=null) q.add(new Customarr(currnode.right, curridx*2+2));
             }
+
+            // Once, a level is done, evaluate for new Max Width obtained
             width = Math.max(width, last-first+1);
         }
+
+        // Return overall max width
         return width;
     }
 }
