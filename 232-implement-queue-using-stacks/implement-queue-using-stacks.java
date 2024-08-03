@@ -1,8 +1,9 @@
 class MyQueue {
     Stack<Integer> s1 = new Stack<Integer>();
     Stack<Integer> s2 = new Stack<Integer>();
+
     public MyQueue() {
-        
+        // Default Constructor     
     }
     
     public void push(int x) {
