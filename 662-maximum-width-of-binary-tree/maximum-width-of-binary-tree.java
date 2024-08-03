@@ -35,7 +35,7 @@ class Solution {
             int first = 0;
             int last = 0;
             for(int i = 0; i<size; i++){
-                int curridx = q.peek().idx - thisLevelMinidx - 1;
+                int curridx = q.peek().idx - thisLevelMinidx;
                 TreeNode currnode = q.peek().node;
                 q.poll();
                 if (i==0) first = curridx;
