@@ -23,16 +23,34 @@
 
 // Tabulation -
 
+// class Solution {
+//     public int rob(int[] nums) {
+//         int [] dp = new int [nums.length];
+//         for(int i = 0; i<nums.length; i++){
+//             int rob = nums[i];
+//             if(i>1) rob+=dp[i-2];
+//             int notrob = 0;
+//             if(i>0) notrob+=dp[i-1];
+//             dp[i] = Math.max(rob, notrob);
+//         }
+//         return dp[nums.length-1];
+//     }
+// }
+
+// -----------------------------------------------------------------
+
+// Tabulation with space optimization -
+
 class Solution {
     public int rob(int[] nums) {
-        int [] dp = new int [nums.length];
+        int prev1 = 0;
+        int prev2 = 0;
         for(int i = 0; i<nums.length; i++){
-            int rob = nums[i];
-            if(i>1) rob+=dp[i-2];
-            int notrob = 0;
-            if(i>0) notrob+=dp[i-1];
-            dp[i] = Math.max(rob, notrob);
+            int rob = nums[i] + prev2;
+            int notrob = 0 + prev1;
+            prev2 = prev1;
+            prev1 = Math.max(rob, notrob);
         }
-        return dp[nums.length-1];
+        return prev1;
     }
 }
