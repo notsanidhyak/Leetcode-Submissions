@@ -13,6 +13,7 @@
  *     }
  * }
  */
+
 class Customarr{
     TreeNode node;
     int idx;
@@ -30,11 +31,11 @@ class Solution {
         q.add(new Customarr(root, 0));
         while(!q.isEmpty()){
             int size = q.size();
-            int mmin = q.peek().idx;
+            int thisLevelMinidx = q.peek().idx;
             int first = 0;
             int last = 0;
             for(int i = 0; i<size; i++){
-                int curridx = q.peek().idx - mmin;
+                int curridx = q.peek().idx - thisLevelMinidx - 1;
                 TreeNode currnode = q.peek().node;
                 q.poll();
                 if (i==0) first = curridx;
