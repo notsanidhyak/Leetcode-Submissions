@@ -38,6 +38,7 @@ class Solution {
             int last = 0;
             for(int i = 0; i<size; i++){
                 int curridx = q.peek().idx - thisLevelMinidx; // Sets idx starting from 0 always (dad is always idx 0)
+                // Resetting the index to zero is imp because int overflow may occur in skewed trees hence better reset to 0
                 TreeNode currnode = q.peek().node;
                 q.poll();
                 if (i==0) first = curridx; // leftmost possible
