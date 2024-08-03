@@ -13,13 +13,16 @@ class Solution {
             if (count > maxFrequency) {
                 maxFrequency = count;
                 maxCount = 1;
-            } else if (count == maxFrequency) {
+            }
+            else if (count == maxFrequency) {
                 maxCount++;
             }
         }
 
         // Step 3: Calculate the minimum number of intervals
         int minIntervals = (maxFrequency - 1) * (n + 1) + maxCount;
+
+        // If number of tasks>minIntervals then all can be scheduled as is
         return Math.max(minIntervals, tasks.length);
     }
 }
