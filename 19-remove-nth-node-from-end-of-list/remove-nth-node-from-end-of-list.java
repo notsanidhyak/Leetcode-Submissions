@@ -17,9 +17,9 @@ class Solution {
             curr = curr.next;
             ct++;
         }
-        if(ct==1 && n==1){
-            return null;
-        }
+        // if(ct==1 && n==1){
+        //     return null;
+        // }
         if(ct==n){
             return copy.next;
         }
