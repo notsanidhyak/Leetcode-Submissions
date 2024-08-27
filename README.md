@@ -1,2 +1,2 @@
 # Leetcode-Submissions
-Collection of LeetCode questions attempted. 
+Collection of LeetCode questions attempted.
