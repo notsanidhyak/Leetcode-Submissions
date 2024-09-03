@@ -4,7 +4,7 @@ class Solution {
         StringBuilder number = new StringBuilder();
         for (char x : s.toCharArray()) {
             number.append(x - 'a' + 1);
-        }
+        } 
         
         // Perform the transformation `k` times
         while (k > 0) {
