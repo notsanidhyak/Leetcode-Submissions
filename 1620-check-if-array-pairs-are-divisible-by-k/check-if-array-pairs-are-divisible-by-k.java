@@ -1,7 +1,7 @@
 class Solution {
     public boolean canArrange(int[] arr, int k) {
         int [] freq = new int[k];
-        
+
         for(int num: arr){
             int rem = num % k;
             if(rem < 0) rem = rem + k;
@@ -13,6 +13,7 @@ class Solution {
         for(int i = 1;i <= k / 2;i++){
             if(freq[i] != freq[k-i]) return false;
         }
+        
         return true;
     }
 }
