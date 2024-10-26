@@ -45,9 +45,7 @@ class Solution {
     }
     
     private int dfs(TreeNode root, int h) {
-        if (root == null) {
-            return 0;
-        }
+        if (root == null) return 0;
         mp1.put(root.val, id);
         mp2.put(id, h);
         id++;
