@@ -26,7 +26,6 @@ class Solution {
                 begin++;
             }
         }
-        
         return maxSum;
     }
 }
