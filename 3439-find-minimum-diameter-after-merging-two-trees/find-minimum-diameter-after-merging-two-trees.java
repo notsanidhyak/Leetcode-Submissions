@@ -1,6 +1,6 @@
 class Solution {
     public int minimumDiameterAfterMerge(int[][] edges1, int[][] edges2) {
-        // Step 1: Construct adjacency lists for tree1 and tree2
+        // Construct adjacency lists for tree1 and tree2
         int n1 = edges1.length + 1; // Number of nodes in tree1
         ArrayList<ArrayList<Integer>> tree1 = new ArrayList<>();
         for (int i = 0; i < n1; i++) {
@@ -25,14 +25,14 @@ class Solution {
             tree2.get(v).add(u);
         }
 
-        // Step 2: Calculate diameters of tree1 and tree2
+        // Calculate diameters of tree1 and tree2
         int diameter1 = findDiameter(tree1, n1);
         int diameter2 = findDiameter(tree2, n2);
 
-        // Step 3: Calculate the merged tree's diameter
+        // Calculate the merged tree's diameter
         int totalDiameter = (int) Math.ceil(diameter1 / 2.0) + (int) Math.ceil(diameter2 / 2.0) + 1;
 
-        // Step 4: Return the maximum of the two diameters and the merged diameter
+        // Return the maximum of the two diameters and the merged diameter
         return Math.max(Math.max(diameter1, diameter2), totalDiameter);
     }
 
