@@ -9,16 +9,16 @@ class Solution {
         }
         int[][] dp = new int[m][target.length()];
         for (int[] row : dp) Arrays.fill(row, -1);
-        return F(0, 0, target, A, dp, mod);
+        return helper(0, 0, target, A, dp, mod);
     }
 
-    public int F(int i, int j, String target, int[][] A, int[][] dp, int mod) {
+    public int helper(int i, int j, String target, int[][] A, int[][] dp, int mod) {
         if (j == target.length()) return 1;
         if (i == A.length) return 0; 
         if (dp[i][j] != -1) return dp[i][j]; 
-        long count = F(i + 1, j, target, A, dp, mod); 
+        long count = helper(i + 1, j, target, A, dp, mod); 
         count %= mod;
-        count += (1L * A[i][target.charAt(j) - 'a'] * F(i + 1, j + 1, target, A, dp, mod)) % mod;
+        count += (1L * A[i][target.charAt(j) - 'a'] * helper(i + 1, j + 1, target, A, dp, mod)) % mod;
         count %= mod;
         return dp[i][j] = (int) count;
     }
