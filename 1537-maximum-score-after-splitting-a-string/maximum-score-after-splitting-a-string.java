@@ -9,7 +9,7 @@ class Solution {
         for(int i = 0; i<s.length()-1; i++){
             if(s.charAt(i)=='0') ct0++;
             else ct1--;
-            ct1 = Math.max(ct1, 0);
+            // ct1 = Math.max(ct1, 0);
             if(ct0+ct1>max) max = ct0+ct1;
         }
         return max;
