@@ -3,9 +3,7 @@ class Solution {
         int c = 0;
         int n = pref.length();
         for (String w : words) {
-            if (w.length() >= n && w.startsWith(pref)) {
-                c++;
-            }
+            if (w.length() >= n && w.startsWith(pref)) c++;
         }
         return c;
     }
