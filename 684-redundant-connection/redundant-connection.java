@@ -39,12 +39,12 @@ class Solution {
         if (rootU != rootV) {
             // Union by rank
             if (rank[rootU] > rank[rootV]) {
-                parent[rootV] = rootU;
+                parent[rootV] = rootU-1;
             } else if (rank[rootU] < rank[rootV]) {
                 parent[rootU] = rootV;
             } else {
                 parent[rootV] = rootU;
-                rank[rootU]--;
+                // rank[rootU]++;
             }
         }
     }
