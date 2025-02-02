@@ -5,17 +5,17 @@ class Solution {
             System.out.println(i);
             i++;
         }
-        if(i==nums.length-1) return true;
-        System.out.println("hi");
+        System.out.println("ji");
         if(nums[0]>=nums[nums.length-1]){
             i++;
-            System.out.println(i);
             while(i<nums.length-1 && nums[i]<=nums[i+1]){
                 System.out.println(i);
                 i++;
             }
-            if(i==nums.length-1) return true;
+            System.out.println(i);
+
         }
+        if(i>=nums.length-1) return true;
         return false;
     }
 }
