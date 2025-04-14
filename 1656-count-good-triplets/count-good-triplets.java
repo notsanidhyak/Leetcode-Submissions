@@ -20,7 +20,6 @@ class Solution {
                 interval[ind]++;
             }
         }
-
         return res;
     }
 }
