@@ -1,24 +1,16 @@
 class Solution {
     public long countSubarrays(int[] nums, int minK, int maxK) {
-        long res = 0;
-        int badIdx = -1, leftIdx = -1, rightIdx = -1;
-
+        int pMin = -1, pMax = -1, bad = -1;
+        long ans = 0;
+        
         for (int i = 0; i < nums.length; ++i) {
-            if (!(minK <= nums[i] && nums[i] <= maxK)) {
-                badIdx = i;
+            if (nums[i] == minK) pMin = i;
+            if (nums[i] == maxK) pMax = i;
+            if (nums[i] < minK || nums[i] > maxK) bad = i;
+            if (pMin != -1 && pMax != -1) {
+                ans += Math.max(0, Math.min(pMin, pMax) - bad);
             }
-
-            if (nums[i] == minK) {
-                leftIdx = i;
-            }
-
-            if (nums[i] == maxK) {
-                rightIdx = i;
-            }
-
-            res += Math.max(0, Math.min(leftIdx, rightIdx) - badIdx);
         }
-
-        return res;
+        return ans;
     }
 }
