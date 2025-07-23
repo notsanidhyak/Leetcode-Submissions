@@ -1,42 +1,49 @@
 class Solution {
     public int maximumGain(String s, int x, int y) {
-        int res = 0;
-        String top, bot;
-        int top_score, bot_score;
+        int totalPoints = 0;
+        String highPriorityPair = (x > y) ? "ab" : "ba";
+        String lowPriorityPair = (x > y) ? "ba" : "ab";
+        int highPriorityScore = Math.max(x, y);
+        int lowPriorityScore = Math.min(x, y);
 
-        if (y > x) {
-            top = "ba";
-            top_score = y;
-            bot = "ab";
-            bot_score = x;
-        } else {
-            top = "ab";
-            top_score = x;
-            bot = "ba";
-            bot_score = y;
-        }
+        // First pass for the higher score
+        Result afterFirstPass = solve(s, highPriorityPair, highPriorityScore);
+        totalPoints += afterFirstPass.points;
 
-        // Removing first top substrings cause they give more points
+        // Second pass for the lower score on the remaining string
+        Result afterSecondPass = solve(afterFirstPass.remainingString, lowPriorityPair, lowPriorityScore);
+        totalPoints += afterSecondPass.points;
+
+        return totalPoints;
+    }
+
+    private Result solve(String text, String pattern, int score) {
         StringBuilder stack = new StringBuilder();
-        for (char ch : s.toCharArray()) { // Changed 'char' to 'ch'
-            if (ch == top.charAt(1) && stack.length() > 0 && stack.charAt(stack.length() - 1) == top.charAt(0)) {
-                res += top_score;
-                stack.setLength(stack.length() - 1);
-            } else {
-                stack.append(ch);
-            }
-        }
+        int points = 0;
+        char p1 = pattern.charAt(0);
+        char p2 = pattern.charAt(1);
 
-        // Removing bot substrings cause they give less or equal amount of scores
-        StringBuilder new_stack = new StringBuilder();
-        for (char ch : stack.toString().toCharArray()) { // Changed 'char' to 'ch'
-            if (ch == bot.charAt(1) && new_stack.length() > 0 && new_stack.charAt(new_stack.length() - 1) == bot.charAt(0)) {
-                res += bot_score;
-                new_stack.setLength(new_stack.length() - 1);
+        for (int i = 0; i < text.length(); i++) {
+            char currentChar = text.charAt(i);
+            int stackLen = stack.length();
+            if (stackLen > 0 && stack.charAt(stackLen - 1) == p1 && currentChar == p2) {
+                stack.deleteCharAt(stackLen - 1);
+                points += score;
             } else {
-                new_stack.append(ch);
+                stack.append(currentChar);
             }
         }
-        return res;
+        return new Result(points, stack.toString());
+    }
+
+    // Helper class to return multiple values from the solve function
+    private static class Result {
+        int points;
+        String remainingString;
+
+        Result(int points, String remainingString) {
+            this.points = points;
+            this.remainingString = remainingString;
+        }
     }
 }
