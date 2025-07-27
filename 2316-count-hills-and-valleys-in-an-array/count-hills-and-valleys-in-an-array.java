@@ -12,6 +12,6 @@ class Solution {
                 left = i;
             }
         }
-        return count--;
+        return count;
     }
 }
